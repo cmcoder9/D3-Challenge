@@ -24,13 +24,9 @@ var chartGroup = svg.append("g")
 
 // CSV file path
 var censusData = "assets/data/data.csv"
-// var data = {}
-// read in csv data
-// d3.csv(censusData).then(function(data) {
+
 d3.csv(censusData).then(data=> {
-    // [{'id': abc, 'state': 'tx'}, 
-    //  {'id': efg, 'state': 'ca'}]
-    // Declare the data as a numeral
+   //Convert string data into numerical values for plot
     data.forEach(function(dataset) {
         console.log(dataset);
         dataset.healthcare = +dataset.healthcare;
@@ -55,14 +51,6 @@ d3.csv(censusData).then(data=> {
     // var xAxis = d3.axisBottom(xScale);
     var yAxis = chartGroup.append('g').call(d3.axisLeft(yScale));
 
-    // Append Axis to the chart
-    //chartGroup.append("g")
-    //    .attr("transform", `translate(0, ${plotHeight})`)
-    //    .call(xAxis);
-    
-    //chartGroup.append("g")
-    //    .call(yAxis);
-
     // Add the data points to the chart
     var circlesGroup = chartGroup.selectAll("circle")
         .data(data)
@@ -83,7 +71,6 @@ d3.csv(censusData).then(data=> {
         .attr("x", d => xScale(d.poverty))
         .attr("y", d => yScale(d.healthcare))
         .attr("font-size", 10)
-        // Text was misaligned, this fixed the issue
         .attr("dy", 4)
         .text(d => d.abbr);
     
@@ -95,14 +82,13 @@ d3.csv(censusData).then(data=> {
         .attr("dy", "1em")
         .attr("class", "aText")
         .attr("class", "active")
-        .text('Lacks Health Care')
-//        .text("Percentage of Smokers(%)");
+        .text('Lacks Health Care (%)')
 
     chartGroup.append("text")
         .attr("transform", `translate(${plotWidth / 2}, ${plotHeight + margin.top + 30})`)
         .attr("class", "aText")
         .attr("class", "active")
-        .text('In Poverty')
+        .text('In Poverty (%)')
 //        .text("Age (Median)");
 
     // Initialize tooltip
