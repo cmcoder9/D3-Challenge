@@ -1,14 +1,14 @@
 var svgWidth=750
 var svgHeight=500
 
-// SVG  Dimensions
+// SVG  Dimensions:
 var margin = {
     top: 10,
     right: 30,
     bottom: 80,
     left: 60}
 
-// Plot Dimensions
+// Plot Dimensions:
  var plotWidth = svgWidth - margin.left - margin.right;
  var plotHeight = svgHeight - margin.top - margin.bottom;
 
@@ -22,6 +22,7 @@ var svg = d3.select("#scatter")
 var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.right})`);
 
+///IMPORT DATA///
 // CSV file path
 var censusData = "assets/data/data.csv"
 
@@ -48,7 +49,6 @@ d3.csv(censusData).then(data=> {
         .range([plotHeight, 0]);
 
     // Create Axis Functions
-    // var xAxis = d3.axisBottom(xScale);
     var yAxis = chartGroup.append('g').call(d3.axisLeft(yScale));
 
     // Add the data points to the chart
@@ -89,7 +89,6 @@ d3.csv(censusData).then(data=> {
         .attr("class", "aText")
         .attr("class", "active")
         .text('In Poverty (%)')
-//        .text("Age (Median)");
 
     // Initialize tooltip
     var toolTip = d3.tip()
@@ -110,7 +109,6 @@ d3.csv(censusData).then(data=> {
         toolTip.hide(d);
     });
 
-    // Had to add handlers for text as the previous mouseout event triggers on going on text
     // Mouseover event for text
     stateText.on("mouseover", function(d) {
         toolTip.show(d, this);
@@ -121,3 +119,4 @@ d3.csv(censusData).then(data=> {
     });
 
 });
+
